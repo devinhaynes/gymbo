@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div>
+    <h1>Welcome {{ current_user.username }}</h1>
+    <p class="text-secondary">{{ current_user.email }}</p>
+  </div>
+  <form method="post" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <table class="table  table-bordered table-hover">
+      <tr class="thead-light">
+        <th>Lift</th>
+        <th>Current Max</th>
+        <th>Overall Max</th>
+      </tr>
+      <tr>
+        <td>{{ form.bench_press.label() }}</td>
+        <td><div class="form-group">
+          {% if form.bench_press.errors %}
+            {% for error in form.bench_press.errors %}
+              {{ form.bench_press(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                <span>{{ error }}</span>
+              </div>
+            {% endfor %}
+          {% else %}
+            {{ form.bench_press(class="form-control form-control-lg") }}
+          {% endif %}
+        </div></td>
+        {% if lifts[0] %}
+          {% if form.bench_press.data > lifts[0].max_lift %}
+            <td class="bg-success">
+              {{ form.bench_press.data }}
+            </td>
+          {% elif lifts[0].current_lift < lifts[0].max_lift %}
+            <td class="border border-danger">
+              {{ lifts[0].max_lift }}
+            </td>
+          {% else %}
+            <td class="bg-light">
+              {{ lifts[0].max_lift }}
+            </td>
+          {% endif %}
+        {% else %}
+          <td class="bg-light">0</td>
+        {% endif %}
+      </tr>
+      <tr>
+        <td>{{ form.squat.label() }}</td>
+        <td><div class="form-group">
+          {% if form.squat.errors %}
+            {% for error in form.squat.errors %}
+              {{ form.squat(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                <span>{{ error }}</span>
+              </div>
+            {% endfor %}
+          {% else %}
+            {{ form.squat(class="form-control form-control-lg") }}
+          {% endif %}
+        </div></td>
+        {% if lifts[1] %}
+          {% if form.squat.data > lifts[1].max_lift %}
+            <td class="bg-success">
+              {{ form.squat.data }}
+            </td>
+          {% elif form.squat.data < lifts[1].max_lift %}
+            <td class="bg-danger">
+              {{ lifts[1].max_lift }}
+            </td>
+          {% else %}
+            <td class="bg-light">
+              {{ lifts[1].max_lift }}
+            </td>
+          {% endif %}
+        {% else %}
+          <td class="bg-light">0</td>
+        {% endif %}
+      </tr>
+      <tr>
+        <td>{{ form.front_squat.label() }}</td>
+        <td><div class="form-group">
+          {% if form.front_squat.errors %}
+            {% for error in form.front_squat.errors %}
+              {{ form.front_squat(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                <span>{{ error }}</span>
+              </div>
+            {% endfor %}
+          {% else %}
+            {{ form.front_squat(class="form-control form-control-lg") }}
+          {% endif %}
+        </div></td>
+        {% if lifts[2] %}
+          {% if form.front_squat.data > lifts[2].max_lift %}
+            <td class="bg-success">
+              {{ form.front_squat.data }}
+            </td>
+          {% elif form.front_squat.data < lifts[2].max_lift %}
+            <td class="bg-danger">
+              {{ lifts[2].max_lift }}
+            </td>
+          {% else %}
+            <td class="bg-light">
+              {{ lifts[2].max_lift }}
+            </td>
+          {% endif %}
+        {% else %}
+          <td class="bg-light">0</td>
+        {% endif %}
+      </tr>
+      <tr>
+        <td>{{ form.deadlift.label() }}</td>
+        <td><div class="form-group">
+          {% if form.deadlift.errors %}
+            {% for error in form.deadlift.errors %}
+              {{ form.deadlift(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                <span>{{ error }}</span>
+              </div>
+            {% endfor %}
+          {% else %}
+            {{ form.deadlift(class="form-control form-control-lg") }}
+          {% endif %}
+        </div></td>
+        {% if lifts[3] %}
+          {% if form.deadlift.data > lifts[3].max_lift %}
+            <td class="bg-success">
+              {{ form.deadlift.data }}
+            </td>
+          {% elif form.deadlift.data < lifts[3].max_lift %}
+            <td class="bg-danger">
+              {{ lifts[3].max_lift }}
+            </td>
+          {% else %}
+            <td class="bg-light">
+              {{ lifts[3].max_lift }}
+            </td>
+          {% endif %}
+        {% else %}
+          <td class="bg-light">0</td>
+        {% endif %}
+      </tr>
+    </table>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+  <form>
+    <div class="form-group">
+      <input class="btn btn-outline-info" type="submit" value="Add Lift">
+    </div>
+{% endblock content %}
